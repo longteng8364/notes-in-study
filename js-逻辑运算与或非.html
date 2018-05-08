@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//! 一个叹号是将某个类型的值先转换为boolean类型，再取非；
+			//!!两个叹号相当于将某个类型的值强制转换为boolean类型，并不是没有作用
+			
+			var a=12,b=0,c=5;
+			var s=a||b;
+			console.log(s);  //12
+			//首先看a代表的值转换为boolean值是true还是false，如果是true，那s=a；如果是false，那s=b；
+			
+			var d=a&&b;
+			console.log(d);  //0
+			//首先看a代表的值转换为boolean值是true还是false，如果是true，那d=b；如果是false，那d=a；
+			
+			var g=c||a&&b;
+			console.log(g);  //5
+			//逻辑与的优先级比逻辑或的优先级要高，所以要先进行a&&b的计算，a是true，所以这里的结果是b，
+			//然后进行c||b计算，c是true，所以结果是c，也就是5；
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <label for="txt1">UserName:</label>
+    <!-- 点击label标签的内容，input会获得焦点，这个绑定操作需要label标签的for属性写入input标签的ID
+    而且在js中给label和input标签添加事件，触发label上的事件的时候会带着input上的事件一起触发
+    -->
+    <input id="txt1" type="text">
+
+    <ul></ul>
+    
+    
+    
+    
+    <script>
+        //1.标准模式和怪异模式：有没有<!DOCTYPE html>（也叫DTD 文档解析规范）
+            //标准模式：CSS1Compat；
+            //怪异模式：BackCompat；
+            //怪异模式只在某些古老的浏览器能看到效果，比如IE6；
+            //在怪异模式下，一个元素的width值是content的宽度+左右padding+左右border的总和；
+            //在怪异模式下，行级元素可以设置宽高；
+            //在怪异模式下，margin不起作用；
+        console.log(document.compatMode);    
+
+        //2.通过DOM给html元素设置属性有两种形式：
+            //第一种就直接 .className .id .type 。。。这些可以对元素天生就有的属性（叫做特性）进行获取和设置
+            //第二种就是我们自定义的属性 就必须用getAttribute()和setAttribute()来获取和设置；
+
+
+        //3.图片预加载和懒加载：
+        /*  预加载：等图片加载完成之后才插入html文档：
+            var oImg = new Image();
+            oImg.src = '';
+            oImg.onload = function (){
+                document.body.appendChild(oImg);
+            }
+
+            懒加载：触发某个事件（比如点击，滚轮滚到某位置）才开始加载图片
+
+            淘宝用的就是懒加载和预加载结合；
+        */
+
+
+        //4.文档碎片：
+            //在需要将大量内容通过js添加到html文档中时，如果一个个添加会很耗费性能，所以最好是一块添加
+            //可以把这些内容先添加到文档碎片中，再将这个文档碎片添加到html结构中：
+            /*
+            var oFrag = document.createDocumentFragment();
+            for(var i = 0; i < 1000; i ++){
+                var oLi = document.createElement('li');
+                oLi.innerText = i;
+                //document.getElementByTagName('ul')[0].appendChild(oLi);写在循环里会十分耗费性能
+                oFrag.appendChild(oLi);
+            }
+            document.getElementsByTagName('ul')[0].appendChild(oFrag);
+            */
+
+            //还可以用拼接字符串的方法：
+            var str = '';
+            for(var i = 0; i < 1000; i ++){
+                str += '<li>' + i + '</li>';
+            }
+            document.getElementsByTagName('ul')[0].innerHTML = str;
+    </script>
+</body>
+</html>

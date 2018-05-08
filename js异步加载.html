@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //javascript异步加载的三种方案：
+
+        /*
+            1.defer异步加载，要等到dom文档全部解析完才会被执行。只有IE能用，
+            可以将代码写到内部。
+
+            2.async异步加载，加载完就执行，async只能加载外部脚本，不能把js
+            写在script标签里。
+
+            1和2执行时不会阻塞页面。
+
+            3.创建script，插入到DOM 中，加载完毕后callback
+        */
+
+        //var script = document.createElement('script');
+        //script.src = "demo.js";
+        // script.onload = function (){
+        //     demo();
+        // }  标准浏览器的方法；
+
+        // script.onreadystatechange = function (){
+        //     if(script.readyState == 'complete' || script.readyState == 'loaded'){
+        //         demo();
+        //     }
+        // } IE的方法；
+
+        //兼容写法：
+        /*
+        if(script.readyState){
+            script.onreadystatechange = function (){
+                if(script.readyState == 'complete' || script.readyState == 'loaded'){
+                    demo();
+                }
+            }
+        }else{
+            script.onload = function (){
+                demo();
+            }
+        }
+
+        document.head.appendChild(script);
+        */
+
+
+        //封装成一个方法：
+        function loadScript(url, callback){
+            var script = document.createElement('script');
+            if(script.readyState){
+                script.onreadystatechange = function (){
+                    if(script.readyState == 'complete' || script.readyState =='loaded'){
+                        callback();
+                    }
+                }
+            }else{
+                script.onload = function (){
+                    callback();
+                }
+            }
+            script.src = url;
+            document.head.appendChild(script);
+        }
+
+        /*
+        loadScript('demo.js', demo);这样会报错，因为这句执行的时候，demo.js其实还没有加载过来
+        可以：
+        loadScript('demo.js', function (){ demo();});
+        */
+    
+    </script>
+</body>
+</html>

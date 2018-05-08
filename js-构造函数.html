@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>构造函数内部原理</h2>
+    <p>
+        当一个构造函数被new关键字执行的时候
+        1.在函数体最前面隐式地加上 var this = {}；
+        
+        2.执行 this.xxx = xxx;
+        
+        3.隐式地返回this
+
+    </p>
+    <p>
+        原始值不能有属性和方法，比如数字123，字符串‘abc’。
+        但是Number、String可以作为构造函数创建对象形式的数字和字符串。
+        
+        这样就能赋予属性和方法，并且还具有数字或字符串的计算、拼接等特性
+        
+        undefined和null不能作为构造函数
+
+
+    </p>
+<script>
+    var num = new Number(123);
+    var str = new String('abcd');
+    var bol = new Boolean('true');
+
+    num.a='abc';
+    console.log(num);
+    console.log(num * 2);
+    str.b='bcd';
+    console.log(str);
+
+
+//包装类：
+    var num2 = 134;
+    num2.len = 2;
+    console.log(num2.len); // -->undefined
+    //当给原始值添加属性的时候，系统会创建一个数字对象来存储这个属性
+    // new Number(134).len = 2 ;
+    //所以不会报错，但是创建完成之后又会马上delete这个对象
+    //当再次访问这个属性的时候，系统会再创建一个数字对象
+    // new Number(134).len 这是一个新的对象，不是刚才删掉那个，
+    //所以会输入undefined
+
+    var str2 = 'abcd';
+    str2.length = 2;
+    console.log(str2.length); // -->4
+    /*
+    字符串本身自带一个length属性，但是不能设置，所以当给
+    str2.length赋值时，系统会创建一个字符串对象
+    new String('abcd').length = 2;
+    然后又马上delete
+    但是访问str2.length的时候访问的是字符串本身的那个属性
+    */
+
+
+    //测试题：
+    var str3 = 'abc';
+    str3 += 1;
+    var test = typeof(str3);
+    if(test.length == 6){
+        test.sign = "luanqibazao";
+    }
+    console.log(test.sign);
+    //--> undefined
+</script>
+</body>
+</html>

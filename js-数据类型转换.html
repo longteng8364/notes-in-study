@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    类型转换主要分为两种：强制（显性）类型转换和自动（隐性）类型转换。每种转换又可分为原始类型转换和对象类型转换。js原始类型值有number string Boolean null undefined Symbol六种。
+
+    一、显性类型转换
+      1.将其他类型转为字符串 -String()
+        原始类型数据转换为字符串，可以说就是直接在原来的值前后加上引号就可以。
+        对象类型的转换就比较复杂了：
+        1）调用toString()方法，如果返回基本类型的值，则用String()构造方法转换该值。
+        2）如果toString()返回的不是基本类型，则再调用valueOf()方法，如果返回基本类型的值，则用String()构造方法转换该值。
+        3）如果valueOf()方法返回的也不是基本类型，则报错。
+
+      2.将其他类型转换成数字 -Number()
+        如果是原始类型值，规则如下：
+        -"1232" => 1232
+        -true   => 1
+        -false  => 0
+        -null   => 0
+        -undefined  ==> NaN
+        -""     => 0
+        -"fsdf" => NaN
+        Number()构造函数将字符串转换为数字时，字符串必须完全为数字，只要其中有一个字符无法转为数值，则整个字符串会被转为NaN。如果想不精确转换，可以使用parseInt()，parseFloat()，这样只要字符串的开头是数字就可以转为数字
+
+        对象类型转为数字，和上面对象转换为字符串类似，只是转为数字时是先调用valueOf()方法，再调用toString()方法
+
+      3.将其他类型转换成布尔值 -Boolean()
+        使用Boolean构造函数转换其他类型的数据时，除了下面5种情况返回false，其他的都返回true
+        -null
+        -undefined
+        -0
+        -""
+        -NaN
+
+    二、隐式类型转换
+      1.转换为数字
+        在所有加减乘除等需要数字类型的地方，js会自动使用Number()构造函数对变量进行转换。不过有一个例外，就是字符串和其他类型值相加都会变成字符串
+        isNaN()判断的时候，会先调用Number()方法把参数处理一下
+        > <  >=  <=  这些比较运算符，如果左右两边有一个是数字，那另一个也转换成数字；如果两边都是字符串，那比较字符串第一位的ASC码
+      2.转换为字符串
+        一般情况下，字符串和其他值相加就是直接的字符串拼接 比如：
+        -'a' + 1  => 'a1'
+        -'a' + undefined   => 'aundefined'
+        -'a' + null   => 'anull'
+        -'a' + true   => 'atrue'
+        -'a' + function b() {}   => 'afunction b() {}'
+        有两个比较特殊的情况：
+        -'a' + []   => 'a'
+        -'a' + [1, 2]   => 'a1, 2'
+        -'a' + {}   => 'a[object Object]'
+
+      3.转换为布尔值
+        &&   ||   ！  == 都会把左右两边的值转换为布尔值再进行比较
+
+      4.特殊情况
+        1）null > 0,  null < 0,  null == 0 都是false
+        2）undefined > 0, undefined < 0, undefined == 0  都是false 
+        3）undefined == null  true
+        4)NaN === NaN  false
+</body>
+<script>
+  //自己写一个isNaN方法：
+     function myIsNaN(num) {
+       var result = Number(num);
+       if(result + '' == 'NaN'){
+         return true;
+       }else{
+         return false;
+       }
+     }
+
+</script>
+</html>

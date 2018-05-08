@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*
+			 flex-direction:方向，横向还是纵向；
+			 flex-wrap:是否换行显示
+			 flex-flow:上面两项的集合  第一个参数设置direction 第二个参数设置wrap 
+			 
+			 justify-content:设置flex-item的对齐方式 flex-start：左对齐，flex-end：右对齐
+			 center：居中 
+			 还可以设置flex-item 之间的间距 ：space-between：item之间间距相等，
+			 第一个与边界，最后一个与边界都没有距离
+			 space-around：每个item的左右间距都相等，所以item之间的间距会是第一个和最后一个
+			 与它们对应的边界的距离的2倍；
+			 
+			 align-items:设置item在cross-axis上位置；
+			 align-content:设置items在cross-axis上的对齐方式，跟justify-content对应
+			 
+			 order:设置items的排列顺序  默认是按照html代码写入的顺序排列的，item的order值默认
+			 是0 设置的数值越大越靠后，越小越靠前
+			 
+			 flex-grow：设置项目的放大比例 默认是0 即如果岑在剩余空间，也不放大。如果所有项目都设置为1 那它们将同比例放大占满整个容器
+			 flex-shrink：设置项目的缩小比例 默认是1 即如果空间不足，项目将缩小 如果设置为0，那即使空间不足，也不缩小
+			 flex-basis：设置项目在分配多余空间之前，占据的主轴空间 默认是auto，即项目的本来大小。可以设置为具体值（100px），这样项目将占据固定空间
+			 flex：是flex-grow，flex-shrink，flex-basis的简写，默认是0 1 auto；
+			 这个属性有两个快捷值：auto（1 1 auto）和none（0 0 auto）；
+			 建议优先使用flex这个属性，而不是单独写三个分离的属性；
+			 
+			 align-self:设置某个项目单独的对齐方式
+			 * */
+			.container{
+				border:5px solid #ccc;
+				height:600px;
+				display:flex;
+				flex-flow:row nowrap;
+				
+				
+			}
+			.container div{
+				width:200px;
+				height:200px;
+				line-height:200px;
+				font-size:48px;
+				text-align:center;
+				color:#fff;
+				background:plum;
+				flex:1 1 auto;
+			}
+			div.item-1{
+				background:red;
+				order:1;
+				align-self:flex-end;
+			}
+			div.item-2{
+				background:green;
+				order:-1;
+				align-self:center;
+			}
+			div.item-3{
+				background:blue;
+				order:3;
+				
+			}
+			div.item-4{
+				background:yellow;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="item-1"><span>1</span></div>
+			<div class="item-2"><span>2</span></div>
+			<div class="item-3"><span>3</span></div>
+			<div class="item-4"><span>4</span></div>
+			<!--<div class="item-5"><span>5</span></div>
+			<div class="item-6"><span>6</span></div>
+			<div class="item-7"><span>7</span></div>
+			<div class="item-8"><span>8</span></div>
+			<div class="item-9"><span>9</span></div>
+			<div class="item-10"><span>10</span></div>
+			-->
+		</div>
+	</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			/*学习数组的方法:
+			更详细信息参考：http://www.jb51.net/article/88899.htm
+			 1.该方法的功能
+			 2.传递的参数是什么
+			 3.返回值是什么
+			 4.原数组是否发生变化
+			*/
+			
+			/*第一组:数组中内容的增加,删除,修改方法
+			1.push();向原数组末尾添加新的内容,可以添加多个内容,中间用逗号隔开,返回值是新数组的长度,原数组改变了;
+			2.unshift();向原数组开头添加新的内容,可以添加多个内容,返回值也是新的数组的长度,原数组也改变了;
+			3.splice(n,m,x);向原数组中间的某个位置添加/删除内容,从数组索引n处开始(包括n),删除m个内容,并将新内容x
+				放在索引n处,返回值是删除的m个内容组成的新数组,原数组也改变了;(可以不加x,这样只起删除作用)
+				splice（）如果只有一个参数，那就是设置原数组的长度。
+				规律:splice(0,0,x)就相当于unshift();
+					 splice(Arry.length,0,x)就相当于push();
+			4.pop();删除数组最后一项,括号里没有内容,不传参数,返回的是删除的那一项,原数组改变
+			5.shift();删除数组第一项,也不传参数,返回的是删除的那一项,原数组改变
+			*/
+			
+			/*第二组:数组内容的查询和复制
+			 6.slice(n,m);从索引n(包括n)开始,找到索引m(不包括m)处,并将找到的所有结果作为新的数组返回,原数组不变
+			   slice(n);从n(包括n)开始,一直找到数组末尾
+			   slice(0)或者slice();相当于将原数组复制一份返回出来
+			 7.concat(Arry);Arry.concat(Arry2),将两个数组进行拼接,返回新的数组,原数组不变
+			   concat();不传参数,相当于将原数组复制一份返回出来
+			*/
+			
+			/*第三组:将数组转化为字符串
+			 8.toString();把数组中的每一项拿出来用逗号隔开,组成字符串,原数组不变
+			 9.join(分隔符);把数组中的每一项拿出来用指定的分隔符隔开,组成字符串,原数组不变
+			 */
+			
+			/*第四组:数组的排列,排序和查找
+			 10.reverse();将数组的内容倒序排列,返回排列完的新数组,原数组改变
+			 11.sort();将数组内容进行排序,按照从小到大或从大到小的顺序排序,返回排序后的数组,原数组改变
+			 	sort()如果不传参数,那只对各数组的首位进行比较,也就只能对10以内的数字进行正确排序
+			 	所以要传一个参数进去,这个参数是一个函数:
+			 	sort(function(a,b){return a-b});由小到大排序
+			 	sort(function(a,b){return b-a});由大到小排序
+			 */
+			/*第五组：数组的归并
+			 12.reduce();接受两个参数，第一个参数是一个函数，第二个参数，是一个初始值，可选
+			 第一个参数那个函数又可以接受4个参数，1.上一次得到的值（没有上一次就是数组的第一个元素）2.当前值 3.当前值的索引 4.原数组本身  一般只传前两个参数。
+			 例如 求出数组中所有数字的和：
+			 	var arr = [1, 2, 3, 4, 5];
+				 arr.reduce(function (prev, cur){ return prev + cur}, 0); 
+			 
+			 13.reduceRight()：跟reduce一样，就是它是从右到左开始执行的。
+			 */
+
+			 /*第六组：数组迭代方法：
+			 	ES5为数组定义了5个迭代方法，每个方法都接收两个参数，第一个是在每一项上要运行的函数，第二个参数是该函数的作用域对象，也就是this指向的对象。
+				 第一个参数那个函数会接收三个参数：数组的每一项，索引，数组本身。
+			 	14.forEach():对数组中的每一项运行给定函数，这个方法没有返回值。
+
+				15.filter():对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组
+			 
+			 	16.map():返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组；
+
+				17.some():对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true。并且当且仅当数组中的所有元素调用判定函数都返回false，它才返回false。
+
+				18.every():对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true；只要有一项返回false，则返回false。
+			 */
+
+			 var person = [
+				{name:"张三"},
+				{name:"李四"},
+				{name:"王五"}
+			 ];
+
+			 person.forEach(function (ele, index){
+				 if(ele.name =="李四"){
+					 //console.log(ele.name);
+					 return;
+					// break; forEach循环里不能用break,会报错,用return也不会终止后续循环,只能跳出本次循环
+					//因为每次循环会执行函数,break和return相当于都写在function里了 而不是写在循环里
+					//所以当我们需要跳出循环的时候,就不要用forEach方法了
+				 }
+				 console.log(ele.name);
+			 })
+			 
+			 //自己写一个forEach方法:
+			 Array.prototype.myForEach = function (func){
+				 for(var i = 0; i < this.length; i++){
+					 func(this[i], i);
+				 }
+			 }
+
+			 //自己写一个filter()方法:
+			 Array.prototype.myFilter = function (func){
+				var newArray = [];
+				var len = this.length;
+				for(var i = 0; i < len; i++){
+					if(func(this[i],i)){
+						if(this[i] && typeof this[i] == 'object'){
+							var newObj = {};
+							deepClone(this[i], newObj);
+							newArray.push(newObj);
+						}else{
+							newArray.push(this[i]);
+						}
+					}
+				}
+				return newArray;
+			 }
+
+
+			 //自己写一个map()方法:
+			 Array.prototype.myMap = function (func){
+				 var newArr = [];
+				 var len = this.length;
+				 for(var i = 0; i < len; i++){
+					 arr.push(func(this[i], i));
+				 }
+				 return newArr;
+			 }
+
+
+//			var ary=[0,1,2,3,4,5];
+//			var res=ary.splice(2,2,333);
+//			console.log(ary);
+//			console.log(res);
+
+			//数组中数字的求和:
+// 			var ary=[12,44,23,3,35,5];
+// //			var total=0;
+// //			for(var i=0;i<ary.length;i++)
+// //			{
+// //				total+=ary[i];
+// //			}
+// //			console.log(total);
+// 			console.log(eval(ary.join('+')));
+// 			//eval();将指定的字符串变成真正可执行的表达式;
+
+
+//模拟数组push方法：
+	// var array = [1,2,3];
+	// //在原型链上写push方法会覆盖原型链上自带的方法
+	// Array.prototype.push = function (){
+
+	// 	for(var i = 0; i < arguments.length; i ++){
+	// 		this[this.length] = arguments[i];
+	// 	}
+
+	// 	return this.length;
+	// }
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

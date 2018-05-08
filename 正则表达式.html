@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			var re=new RegExp('a'); //var re=/a/;
+			var str='aBcdefg 323 45 dfgd4566 32';
+			var str2='adge aegvg 93a35 gagea'
+			var re2=new RegExp('b','i');  //var re2=/b/i; 'i':ignore  忽略大小写；
+			
+			var re3=/\d/;  // ‘\d’ 数字的意思  
+			
+			//alert(str.search(re3)); //这个语句的意思是在字符串找到第一个出现的数字；
+
+			//str.search():只能找到位置;
+			
+			var re4=/\d/g;  //g:Global  全局匹配  找到全部 
+			var re5=/\d\d/g;
+			var re6=/\d\d\d/g;
+			var re7=/\d+/g; //'+'  若干  多少都可以；
+//			alert(str.match(re4)); //3,2,3,4,5,4,5,6,6,3,2
+//			alert(str.match(re5)); //32,45,45,66,32
+//			alert(str.match(re6)); //323,456
+//			alert(str.match(re7)); //323,45,4566,32
+			//str.match() 找到全部匹配的东西，并且都提取出来；
+			
+			var re8=/a/g;
+			alert(str2.replace(re8,'0')); //找到字符串中所有的‘a’并替换成‘0’
+			//如果这里不用正则，只replace（‘a’，‘0’），那么字符串中只有第一个出现的a会被替换
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

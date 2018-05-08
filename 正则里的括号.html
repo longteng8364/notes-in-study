@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			// var str='apc bpc ppc xpc ypc';
+			// var re=/[apy]pc/g; //方括号里的任选其一；
+			// alert(str.match(re));
+			/*
+				在正则里[]就叫做表达式，一个[]表示一位字符
+			 任意字符：[abc]pc
+			 范围：[0-9] [a-z] ;  var re=/\d/; = var re=/[0-9]/;
+			 排除: [^a-z] 除了字母别的都行
+			 
+			 在正则里，'.'这个点，代表任意字符
+			  */
+
+			  /*
+			  正则里的（）
+				1.可以作为优先运算符的功能来使用，多数用在||判断的时候
+				(a||b||c)
+
+				2.（）表示子表达式,后面跟 \数字 表示反向引用第几个子表达式
+				举例:
+			  */
+			  //匹配AAAA样式的字符串:
+			  var reg = /(\w)\1\1\1/g;
+			  var str = 'aaaa';
+			  console.log(str.match(reg));
+			  console.log(reg.test(str));
+
+			  //匹配AABB样式的字符串:
+			  var reg1 = /(\w)\1(\w)\2/g;
+			  var str1 = 'aabb';
+			  console.log(str.match(reg1));
+			  console.log(str1.match(reg1));
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

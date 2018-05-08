@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>立即执行函数</title>
+</head>
+<body>
+    <
+        //立即执行函数
+        (function () {}());  W3C官方建议这一种方式
+        (function () {})();
+
+        只有表达式才能被执行符号执行
+
+        下面的语句叫做函数声明：
+        function test() {
+            console.log('a');
+        }(); //会报错
+
+        下面的语句叫做函数表达式：
+        var test = function (){
+            console.log('b');
+        }();  //会立即执行
+        但是，此时console.log(test) => undefined;
+        因为被执行符号执行的表达式会忽略函数名；
+
+        +(正) -(负) ！ 放在函数声明前都可以立即执行，因为加上它们，这行代码就由函数声明变成了表达式，就可以被执行符号执行了，同样的，函数名会被忽略。
+        + function (){}(); 
+
+
+        alibaba面试题
+        function test(a, b, c, d){
+            console.log(a + b + c + d);
+        }(1, 2, 3, 4);
+
+        这样并不会报错，系统会把后面小括号当做一个新的表达式
+        👇
+        function test(a, b, c, d){
+            console.log(a + b + c + d);
+        }
+
+        (1, 2, 3, 4);
+    
+</body>
+</html>

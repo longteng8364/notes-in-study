@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a = {n : 1};
+        var b = a;
+        a.x = a = {n : 2};
+        console.log(a);
+        console.log(a.x);
+        console.log(b);
+        console.log(b.x);
+        /*
+        首先a指向一个对象，b和a指向同一个对象{n : 1}
+        第三行，因为.的优先级最高，=的优先级最低，所以这里先给a增加
+        一个属性x，因为b和a指向同一个对象，
+        相当于b也有了一个属性x，
+        然后a指向了另一个对象{n : 2}，而前面的a.x这个a还是第一个对象
+        a，也就是b.x={n : 2}
+        而当要console.log(a)的时候输出的是改变之后的a{n ：2}，这个
+        新对象里没有属性x，所以输出a.x是undefined
+        */
+    </script>
+</body>
+</html>

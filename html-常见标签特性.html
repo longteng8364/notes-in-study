@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box1{
+            width: 300px;
+            height: 300px;
+            border: 1px solid red;
+            position: relative;
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            right: 10px;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        块级元素特性:
+            1.独占一行
+            2.支持所有css样式
+            3.宽度默认是父级元素的宽度的100%
+
+        行级元素特性:
+            行级:
+                1.不支持宽高,不支持上下的margin和padding
+                2.内容撑开宽度
+                3.同为行级的元素在一排显示
+                4.代码中的换行符会在页面中显示出来
+
+            行级块:
+                1.支持所有css样式
+                2.内容撑开宽度
+                3.同为行级块的元素在一排显示
+                4代码中的换行符会在页面中显示出来
+
+        table标签的特性：
+            1.单元格会默认平分整个table的宽度
+            2.th的内容默认加粗，并且水平垂直都居中
+            3.td的内容默认垂直居中
+            4.table的宽度绝对整个表格的宽度，如果td，th设置的总宽度比table的宽度大，没有用
+            5.表格的同一列继承最大宽度
+            6.表格的同一行继承最大高度 （th，td最好都设置上宽高）
+
+        浮动的特性:
+            1.浮动的元素排在同一排
+            2.浮动的元素内容撑开宽度
+            3.浮动的元素支持所有css样式
+            4.浮动的元素脱离文档流
+            5.浮动的元素提升层级半级
+
+
+        绝对定位：
+            left,top的优先级要高于 right,bottom;
+
+     -->
+
+     <div class="box1">
+         <div class="box2"></div>
+     </div>
+</body>
+</html>

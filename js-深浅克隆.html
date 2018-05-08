@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            name : "abc",
+            age : 123,
+            card : ['visa','master'],
+            wife : {
+                name : "bcd",
+                son : {
+                    name : "aaa"
+                }
+            }
+        }
+
+        var obj1 = {
+
+        }
+        deepClone(obj, obj1);
+        console.log(obj1);
+        /* 如果用浅克隆方法，就是直接把原对象的属性名和属性值复制给新对象，
+          原始值是没有什么问题的，但是引用值直接复制过去，其实复制的是地址，
+          那么新对象在对引用值类型的属性值进行更改的时候，原对象对应的属性值
+          也会改
+        
+        深克隆：
+        首先遍历原始对象的属性：
+        1.判断是不是原始值，是原始值直接复制
+        2.判断引用值是数组还是对象
+        3.建立相应的数组或对象
+        4.再次调用深克隆方法，用递归来循环 
+
+        function deepClone(origin, target){
+
+            var target = target || {},
+                toStr = Object.prototype.toString,
+                arrStr = "[object Array]";
+
+            for(var prop in origin){
+                if(origin.hasOwnProperty(prop)){
+
+                    if(typeof(origin[prop]) == 'object' && origin[prop] !== 'null'){
+
+                        if(toStr.call(origin[prop]) == arrStr){
+                            target[prop] = [];
+                        }
+                        else{
+                            target[prop] = {};
+                        }
+
+                        deepClone(origin[prop], target[prop]);
+
+                    }else{
+                        target[prop] = origin[prop];
+                    }
+                }
+            }
+
+            return target;
+        } */
+
+
+        //另一种思路：
+        function deepClone(origin, target){
+            if(origin != null){
+                for(var prop in origin){
+                    if(origin[prop] && typeof origin[prop] == 'object'){
+                        if(Object.prototype.toString.call(origin[prop]) == '[object Array]'){
+                            target[prop] = target[prop] ? target[prop] : [];
+                        }else{
+                            target[prop] = target[prop] ? target[prop] : {};
+                        }
+                        target[prop] = deepClone(origin[prop], target[prop]);
+                    }
+                    else{
+                        target[prop] = origin[prop];
+                    }
+                }
+            }
+            return target;
+        }
+    </script>
+</body>
+</html>

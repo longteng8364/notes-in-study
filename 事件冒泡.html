@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div {width:300px; height:200px; background:#ccc; display: none;}
+		</style>
+		<script>
+			//事件处理模型————事件冒泡、捕获
+			/*
+			事件冒泡：
+				结构上（非视觉上）嵌套关系的元素，会存在事件冒泡的功能，即同一事件，
+				自子元素冒泡向父元素
+			事件捕获：
+				结构上（非视觉上）嵌套关系的元素，会存在事件捕获的功能，即同一事件，
+				自父元素捕获至子元素（事件源元素）
+				IE没有事件捕获
+			触发顺序：先捕获，后冒泡
+
+			focus，blur，change，submit，reset，select等事件不冒泡
+			*/
+
+			//取消冒泡：
+			/*
+			W3C标准：event.stopPropagation();不支持ie9以下版本
+			IE独有：event.cancelBubble = true;
+			*/
+
+			//阻止默认事件：
+			/*
+			默认事件：表单提交，a标签跳转，右键菜单等等
+			1.return false；以对象属性的方式注册的事件才生效
+			即ele.onxxx = function () {}这样的形式可以用return false来阻止默认行为
+			2.event.preventDefault();W3C标准,IE9以下不兼容
+			3.event.returnValue = false;兼容IE
+			*/
+			window.onload=function ()
+			{
+				var oDiv=document.getElementById('div1');
+				var oBtn=document.getElementById('btn');
+				
+				oBtn.onclick=function (ev)
+				{
+					var oEvent=ev||event;//兼容
+					oDiv.style.display='block';
+					oEvent.cancelBubble=true;//取消事件冒泡；
+				}
+				document.onclick=function ()
+				{
+					oDiv.style.display='none';
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<input type="button" id="btn" value="显示" />
+		<div id="div1"></div>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="test1" style="width:200px; height:200px; background:green;" onclick="fn()"></div>
+		<div id="test2" style="width:200px; height:200px; background:yellow"></div>
+		<script>
+			/*event对象:当一个事件发生的时候,和当前这个对象发生的这个事件有关的一些详细信息都会被临时保存到一个指定的地方--event对象,供我们在需要的时候调用
+			事件函数:事件调用的函数,一个函数是不是事件函数,不在定义的时候决定,而是取决于这个函数调用的时候
+			在ie和Chrome浏览器下:event是内置全局对象
+			在标准浏览器下:事件对象是通过事件函数的第一个参数传入,如果一个函数是被事件调用,那么这个函数定义的第一个参数就是事件对象
+			例如:
+				document.getElementById('test2').onclick=function (e){
+					var e=e||event;
+				}
+			
+			function fn()
+			{
+				alert(this==window);
+//				直接写在HTML中的事件,相当于动态调用函数,因此不会传入event对象,这时,this指向的是window,不再是触发事件的对象
+			}
+			*/
+
+
+			//事件源对象:
+			/*
+			event.target 火狐只有这个
+			event.srcElement IE只有这个
+			chrome这两个都有
+
+			兼容性写法: var target = event.target ||event.srcElement;
+			*/
+
+
+
+			//事件委托:
+			/*
+			利用事件冒泡,和事件源对象进行处理
+
+			优点:
+				1.性能高,不需要循环所有的元素一个个绑定事件
+				2.灵活 当有新的子元素添加进来时,不需要重新绑定事件
+			*/
+		</script>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  #obj {
+    width: 100px;
+    height: 100px;
+    background: orange;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    top: 100px;
+  }
+  </style>
+</head>
+<body>
+  <div id="obj"></div>
+  <script>
+    //因为是HTML5中添加的API 所以要做兼容性处理
+    window.requestAnimationFrame = (function (){
+      return window.requestAnimationFrame || 
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame ||
+              function (callback){
+                window.setTimeout(callback, 1000/60);
+              }
+    })();
+
+    window.cancelAnimationFrame = (function (){
+      return window.cancelAnimationFrame ||
+              window.webkitCancelAnimationFrame ||
+              window.mozCancelAnimationFrame ||
+              function (timer){
+                window.clearTimeout(timer);
+              }
+    })();
+
+
+    var req;
+    function move(){
+      obj.style.left = obj.offsetLeft + 10 + 'px';
+
+      if(obj.offsetLeft >= 300){
+        cancelAnimationFrame(req);
+        obj.style.left = '300px';
+      }else{
+        req = requestAnimationFrame(move);
+      }
+    }
+
+    move();
+
+    /*
+    setInterval和setTimeout的问题： 它们不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器UI线程队列中以等待执行的时间。如果队列前面加入了其他任务，那动画代码就要等到前面的任务执行完成后再执行。
+
+    requestAnimationFrame的特点：
+    1.它会把每一帧中的所有DOM操作集中起来，在一次重绘或重排中就完成。并且重绘或重排的时间间隔紧紧跟随浏览器的刷新频率
+    2.在隐藏或不可见的元素中，requrestAnimationFrame将不会进行重绘或重排，这就意味着更少的CUP、GPU和内存使用量
+    3.requrestAnimationFrame是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销。
+    */
+  </script>
+</body>
+</html>

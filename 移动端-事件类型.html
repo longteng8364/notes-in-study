@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+    事件分类：
+        1.click事件：
+            单击事件，类似于pc端的click，但在移动端中，连续click的触发有200~300ms的延迟
+
+        2.touch类事件：
+            touchstart
+            touchmove
+            touchend
+            touchcancel
+
+        3.tap类事件：
+            tap
+            longTap
+            singleTap
+            doubleTap
+
+        4.swipe类事件：
+            swipe
+            swipeLeft
+            swipeRight
+            swipeUp
+            swipeDown
+
+        5.gesture手势事件：
+            gesturestart 当有两根或多根手指放到屏幕上的时候触发
+            gesturechange 当有两根或多根手指在屏幕上，并且有手指移动的时候触发
+            gestureend 当只剩一根手指在屏幕上的时候触发
+
+
+    各类事件触发顺序：
+        1.点一下：
+            touchstart--touchend--click--tap--singleTap
+        2.快速点两下：（click只触发了一次）
+            touchstart--touchend--click--tap--touchstart--touchend--tap--doubleTap
+        3.长按：
+            touchstart--longTap--touchend
+        4.向右划一下：
+            touchstart--touchmove--touchmove--touchmove--touchend--swipe--swipeRight
+        5.长按的时候无意间触发了浏览器自身的复制文本功能：
+            touchstart--touchcancel
+
+    touches记录的是屏幕上全部的触摸对象的信息。
+    targetTouches记录的是当前DOM节点上全部的触摸对象的信息
+    changedTouches记录触发该次事件的触摸对象的信息，一般长度为1；
+
+    当在开发一个web游戏的时候，touchcancel很重要，可以在touchcancel触发的时候暂停游戏或者保存游戏。
+
+     -->
+</body>
+</html>

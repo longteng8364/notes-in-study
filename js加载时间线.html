@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>js加载时间线</h2>
+    <ol>
+        <li>
+            创建document对象，开始解析web页面。解析html元素和它们的文本内容后添加Element对象和Text节点
+            到文档中。这个阶段document.readyState = 'loading'。
+        </li>
+        <li>
+            遇到link外部css，创建线程加载，并继续解析文档。
+        </li>
+        <li>
+            遇到script外部js，并且没有设置async、defer，浏览器加载，并阻塞，等待js加载完成并执行该脚本，
+            然后继续解析文档。
+        </li>
+        <li>
+            遇到script外部js，并且设置有async、defer，浏览器创建线程加载，并继续解析文档。
+            对于async属性的脚本，脚本加载完成后立即执行。(异步禁止使用document.write())。
+        </li>
+        <li>
+            遇到img等，先正常解析dom结构，然后浏览器异步加载src，并继续解析文档。
+        </li>
+        <li>
+            当文档解析完成，document.readyState = 'interactive'。
+        </li>
+        <li>
+            文档解析完成后，所有设置有defer的脚本会按照顺序执行(同样禁止使用document.write()).
+        </li>
+        <li>
+            document对象触发DOMContentLoaded事件,这也标志着程序执行从同步脚本执行阶段,转化为事件驱动阶段.
+        </li>
+        <li>
+            当所有async的脚本加载完成并执行后,img等加载完成后,document.readyState = 'complete',
+            window对象触发load事件。
+        </li>
+        <li>
+            从此,以异步响应方式处理用户输入,网络事件等。
+        </li>
+    </ol>
+</body>
+</html>

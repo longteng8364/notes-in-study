@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {padding: 0; margin: 0;}
+        a {
+            font-size: 100px;
+            text-decoration: none;
+        }
+        a:link {color: red;}
+        a:visited {color: green;}
+        a:hover {color: blue;}
+        a:active {color: black;}
+        /* 写的时候一定要按照这个顺序！！！！！    
+                爱恨记忆法： love hate；
+         */
+
+         li:nth-child(2) {
+             background: red;
+         }
+         ul :nth-child(3) {
+             background: green;
+         }
+         ul :first-child {
+             background: deeppink;
+         }
+         /* 
+         注意nth-child这类结构性伪类的写法，这个用法是用在子元素上的，如果用在父元素上，要加空格
+          */
+
+          .spliter:before, .spliter:after {
+              content: '';
+              display: inline-block;
+              border-top: 1px solid black;
+              width: 200px;
+              margin: 5px;
+          }
+    </style>
+</head>
+<body>
+    <a href="#">哈哈哈哈哈</a>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <!-- 
+        伪类和伪元素的定义区别：
+            伪类的效果可以通过添加实际的类名来实现
+            伪元素的效果可以通过添加实际的标签元素来实现
+            它们的本质区别就是 是否抽象创造了元素
+
+            注意：
+            1.伪类就像真正的类一样，可以叠加使用，只要不是互斥的，但是伪元素在一个选择器中只能出现一次，并且只能出现在末尾
+
+            2.伪类与类优先级相同，伪元素与标签优先级相同
+
+
+        伪类包含两种：状态伪类和结构性伪类
+            常见的状态伪类有：
+                :link 未被访问过的链接
+                :visited 被访问过的链接 和:link互斥
+                :hover 鼠标悬停到的元素
+                :active 被激活的元素
+                :focus 获得焦点的元素
+                input:enabled 选择每个启用的<input>元素
+                input:disabled 选择每个禁用的<input>元素
+                input:selected 选择每个被选中的<input>元素
+            常见的结构性伪类有：
+                :first-child 选择属于其父元素的第一个子元素
+                :last-child 选择属于其父元素的最后一个子元素
+                :nth-child(n) 选择属于其父元素的第n个子元素，n可以是数字，可以是even或odd，也可以是公式，比如2n，2n+1
+                :only-child 选择其父元素只有它这一个子元素的元素
+                :first-of-type 选择在其父元素中，该元素是第一个元素类型的元素
+
+                :empty 选择没有子元素（包括文本节点）的该元素 
+
+        伪元素：
+            常见的伪元素有：
+                :first-letter 选择元素文本的第一个字（母）
+                :first-line 选择元素文本的第一行
+                :before 
+                :after
+    -->
+
+    <!-- 伪元素的应用 -->
+    <p class="spliter">分割线</p>
+</body>
+</html>

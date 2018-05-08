@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			//Math.random() //获取[0-1)之间的一个随机小数,包括0,但不包括1
+			//实例:
+			//1.获取1-10之间的随机整数,包括1和10
+			
+			//分析:首先Math.random()的最小值是0,最大值是0.999999....,
+			//所以它不管乘多少,得到的最小值还是0,要想得到1,就得加上1再向下取整
+			//要想得到10,因为它必须加上1了,所以它乘一个数再加1再向下取整的值不能
+			//大于或等于11,所以它乘一个数之后不能大于或等于10,所以这里要乘10;
+			Math.floor(Math.random()*10+1);
+			//或者是用四舍五入的方法,
+			Math.round(Math.random()*9+1);
+			
+			//2.获取0-10之间的随机整数,包括0和10
+			Math.ceil(Math.random()*10);
+			Math.floor(Math.random()*11);
+			
+			
+			//获取[n-m]之间的随机整数公式:
+			//Math.round(Math.random()*(m-n)+n);
+			
+			
+			
+			//封装一个函数,用来获取[n-m]之间的随机整数:
+			function getRandom(n,m)
+			{
+				//先强制转换一下,这样只能有两种结果:有效数字或NaN
+				n=Number(n);
+				m=Number(m);
+				//如果有一个或两个不是有效数字,那直接返回0-1之间的随机小数
+				if(isNaN(n)||isNaN(m))
+				{
+					return Math.random();
+				}
+				//如果n大于m,那我们进行位置互换
+				if(n>m)
+				{
+					var temp=n;
+					n=m;
+					m=temp;
+				}
+				return Math.round(Math.random()*(m-n)+n);
+			}
+			
+			//获取4个0-60之间的随机整数:
+			var ary=[];
+			for(var i=0;i<4;i++)
+			{
+				ary.push(getRandom(0,60));
+			}
+			console.log(ary);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			var ary=[1,2,3,2,3,2,1,4,5,3,4,5,4,3,3,5,2,3,4,6,3,1,6,4,5,2];
+			
+			//两个for循环实现数组去重:
+			//如果数组中数据很多,循环次数太多,影响性能
+			
+			//i=0  第一次循环  开始比较的是索引为1到末尾
+			//i=1 第二次循环  开始比较的是索引为2到末尾
+			//开始比较的索引是i+1
+			//删除数组中某一项的时候,数组会塌陷,删除的那个索引以后的所有索引都往前提一位
+//			
+//			for(var i=0;i<ary.length-1;i++)
+//			{
+//				var cur=ary[i];
+//				for(var j=i+1;j<ary.length;j++)
+//				{
+//					if(cur==ary[j])
+//					{
+//						ary.splice(j,1);
+//						j--;
+//					}
+//				}
+//			}
+//			
+//			console.log(ary);
+
+
+
+			//一个for循环实现数组去重:
+			/*
+			 把数组中的每一项,当作一个新对象的属性名和属性值存起来,在存储的时候,判断当前的属性名是否已经存在,
+			 存在了就代表数组该项重复了,直接删除,否则就代表不重复,直接存储
+			 */
+			
+			// var obj={};
+			// for(var i=0;i<ary.length;i++)
+			// {
+			// 	var cur=ary[i];
+			// 	if(obj[cur]==cur)
+			// 	{
+			// 		ary.splice(i,1);
+			// 		i--;
+			// 	}
+			// 	else
+			// 	{
+			// 		obj[cur]=cur;
+			// 	}
+			// }
+			// obj=null;
+			// console.log(ary);
+
+
+		//在原型链上添加去重方法：
+		Array.prototype.unique = function (){
+			var temp = {},
+			    arr = [],
+				len = this.length;
+				//先把this.length提取出来，这样在每一圈循环的时候可以省去计算this.length
+			for(var i = 0; i < len; i ++){
+				//if(temp[this[i]] == undefined)
+				if(!temp[this[i]])
+				{
+					temp[this[i]] = '占位';
+					arr.push(this[i]);
+				}
+			}
+			return arr;
+		}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    原型：原型是function对象的一个属性(prototype)，它定义了构造函数制造出的实例对象的公共祖先。通过构造函数产生的实例对象，可以继承该原型的属性和方法。原型也是一个对象。
+
+    constructor：实例对象本身没有constructor属性，但是它的祖先也就是它的构造函数的原型对象prototype里面有一个属性constructor。它指向构造函数本身。
+
+    __proto__：每个函数都有一个隐式的__proto__属性，指向它的原型。
+    <script>
+        function Person(){
+
+        }
+        // Person.prototype.name = 'Jobs';
+        // Person.prototype.age = 50;
+        // Person.prototype.color = 'white';
+
+        Person.prototype = {
+            name : 'Jobs',
+            age : 50,
+            color : 'white'
+        }
+
+        var person = new Person();
+
+
+
+
+        var obj = {name : 'Bob'};
+        var obj1 = obj;
+        console.log(obj1.name); //-->Bob；  因为obj是一个对象，是引用值，所以给obj1赋值的其实是obj的地址，也就是现在obj1和obj指向的是同一个内存空间
+
+        obj.name = 'Tom';
+        console.log(obj1.name);// -->Tom；  此时它两个还是指向同一个地址
+
+        obj = {name : 'Vince'};
+        console.log(obj1.name);// -->Tom；  obj重新赋值，得到了另一个内存地址，而obj1还是指向原来的内存空间
+
+
+
+        function Car(){
+
+        }
+        Car.prototype.name = 'BMW';
+
+        var car = new Car();
+        console.log(car.name);// -->BMW
+        //此时，car.__proto__指向的是Car.prototype
+        Car.prototype.name = 'Audi';
+        console.log(car.name); //Audi
+
+        Car.prototype = {
+            name : 'Benz'
+        }
+        //Car.prototype重新赋值，得到了另一个内存地址，不再指向原来的对象，而car的__proto__还是指向原来那个对象。
+        console.log(car.name);// -->Audi
+        
+
+
+
+//对象的另一种创建方式：Object.create(原型)
+var obj = {
+    name : 'Bob',
+    age : 40
+}
+
+var obj1 = Object.create(obj);
+console.log(obj1.name); 
+
+//绝大多数的对象最终都会继承自Object.prototype
+//不是所有的
+//因为可以使用Object.create(null)来创建一个原型为空的对象
+
+
+
+
+
+//继承模式最完美方案：
+//  圣杯模式：
+
+function inherit(Target, Origin){
+    function F(){};
+    F.prototype = Origin.prototype;
+    Target.prototype = new F();
+    Target.prototype.constructor = Target;
+    Target.prototype.uber = Origin.prototype;
+}
+
+//圣杯模式第二种写法
+var inherit2 = (function (){
+    var F = function() {};
+    return function(Target, Origin){
+        F.prototype = Origin.prototype;
+        Target.prototype = new F();
+        Traget.prototype.constructor = Target;
+        Target.prototype.uber = Origin.prototype;
+    };
+}());
+
+Father.prototype.lastName = 'wang';
+function Father(){}
+function Son(){}
+
+inherit(Son, Father);
+var son = new Son();
+var father = new Father();
+
+    </script>
+</body>
+</html>

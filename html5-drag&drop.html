@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>drag&drop</title>
+  <style>
+    #demo1 {
+      width: 100px;
+      height: 100px;
+      background: orangered;
+    }
+    #demo2 {
+      width: 200px;
+      height: 200px;
+      background: deepskyblue;
+    }
+    #wrapper {
+      width: 500px;
+      height: 500px;
+      border: 1px solid #333;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo1" draggable="true"></div>
+  <div id="demo2" draggable="true"></div>
+  
+  <div id="wrapper"></div>
+  <script>
+    /*
+      拖拽相关的事件
+        -dragstart 被拖拽元素开始被拖拽时触发
+        -dragend  被拖拽元素拖拽完成时触发
+        -dragenter  目标元素上的事件  被拖拽元素进入目标元素触发
+        -dragover  目标元素上的事件  被拖拽元素在目标元素上移动触发
+        -drop  目标元素事件  被拖拽的元素在目标元素上被放开时触发
+
+        注意： 需要阻止dragover的默认行为才会触发drop事件
+    */
+    var demo1 = document.getElementById('demo1');
+    var demo2 = document.getElementById('demo2');    
+    var wrapper = document.getElementById('wrapper');
+    demo1.addEventListener('dragstart', function (e){
+      e.dataTransfer.setData('data',this.id);
+    })
+    demo2.addEventListener('dragstart', function(e){
+      e.dataTransfer.setData('data', this.id);
+    })
+        
+    wrapper.addEventListener('dragover', function (e){
+      e.preventDefault();
+    })
+    /* 
+      使用拖拽上传文件
+        也是在drop事件里处理，当然需要先在dragover里把默认事件取消。
+        当往目标元素里拖外部文件的时候，浏览器有个默认打开的行为，这个行为需要在drop事件中阻止。
+        当目标文件绑定了drop事件，并监听到有外部文件drop进来，就可以在e.dataTransfer.files里看到了。
+     */
+    wrapper.addEventListener('drop', function (e){
+      e.preventDefault();
+      var data = e.dataTransfer.getData('data');
+      var files = e.dataTransfer.files;
+      console.log(files);
+
+      this.appendChild(document.getElementById(data));
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			Canvas {
+				
+				border: 1px solid #9c9898;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			知识点1:
+			canvas有两个原生的属性width和height,因为canvas也是一个HTML元素,所以也可以使用css样式来定义
+			width和height,但是它本身的宽高和通过css定义的宽高是不一样的
+			
+			比如一块宽1000的canvas,你在左侧画了一条竖线,宽100像素.此时你把画布本身的width设为500,
+			相当于把画布的右半边剪掉了,此时左侧的竖线的宽度还是100;
+			但如果通过css把画布的宽度变成500,那就相当于把画布由1000缩放成500,竖线的宽度就变成了50
+			(这只是理论情况,实际上设置canvas的宽度时,它会清空已画出的内容)
+			
+			所以:除非特殊情况,一定不要用css来定义canvas的宽高!!
+			
+			知识点2:
+			canvas的绘画过程(fill和stroke)是非常消耗资源的,如果想节省系统 资源,最好是绘制好所有路径,再一次性填充或描边!
+			
+			知识点3:
+			lineCap属性可以设置线条端点的样式,有butt,round,square三种,我们知道round和square都会多出来一截,这一截的长度
+			其实是线条宽度的一半
+			
+			知识点4:
+			线性渐变的坐标是相对于整个canvas页面的,所以给某个图形加线性渐变样式的时候要计算好渐变的坐标
+			而且渐变起点之前和终点之后还是会填充颜色的,起点之前的颜色就一直是起点色,终点之后的颜色就一直是终点色
+			
+			径向渐变createRadialGradient(x1,y1,r1,x2,y2,r2)创建了两个圆,起点圆和终点圆
+			渐变范围以终点圆的范围为准,不过终点圆范围之外还是有颜色,这个颜色就一直是终点色
+			渐变的整个起点圆的颜色就都是起点色,从起点圆之外才开始渐变
+			
+			知识点5:
+			rect或fillRect等,其宽高参数可以是负数,表示向相反的方向画
+		-->
+		<canvas id="myCanvas1" width="200" height="200"></canvas>
+		<canvas id="myCanvas2" width="200" height="200"></canvas>
+		<canvas id="myCanvas3" width="200" height="200"></canvas>
+		<canvas id="myCanvas4" width="200" height="200"></canvas>
+		<canvas id="myCanvas5" width="200" height="200"></canvas>
+		<canvas id="myCanvas6" width="200" height="200"></canvas>
+		<canvas id="myCanvas7" width="400" height="400"></canvas>
+		<canvas id="myCanvas8" width="400" height="400"></canvas>
+		<canvas id="myCanvas9" width="400" height="400"></canvas>
+		<canvas id="myCanvas10" width="400" height="400"></canvas>
+		<img src="./img/lj.jpg" alt="" id="img" width="400" height="400">
+	</body>
+</html>
+<script>
+	var canvas=document.getElementById('myCanvas1');
+	var context=canvas.getContext('2d');
+	context.beginPath();
+	context.moveTo(20,20);
+	context.lineTo(180,180);
+	context.strokeStyle="red";
+	context.lineWidth=20;
+	context.lineCap="round";
+	context.stroke();
+	
+	var c2=document.getElementById('myCanvas2');
+	var cxt2=c2.getContext('2d');
+	cxt2.fillStyle='red';
+	cxt2.fillRect(10,10,100,70);//(x,y,width,height)
+	cxt2.beginPath();
+	cxt2.moveTo(10,100);
+	cxt2.lineTo(190,100);
+	cxt2.lineWidth=20;
+	cxt2.stroke();
+	cxt2.beginPath();
+	cxt2.moveTo(10,140);
+	cxt2.lineTo(190,140);
+	cxt2.lineWidth=20;
+	cxt2.lineCap='round';
+	cxt2.stroke();
+	
+	var c3=document.getElementById('myCanvas3');
+	var cxt3=c3.getContext('2d');
+	cxt3.beginPath();
+	cxt3.arc(100,100,50,0,2*Math.PI);//(x,y,r,start,stop,是否逆时针[默认是否])
+	cxt3.lineWidth=2;
+	cxt3.strokeStyle='yellow';
+	cxt3.fillStyle='red';
+	cxt3.fill();
+	cxt3.stroke();
+	
+	var c4=document.getElementById('myCanvas4');
+	var cxt4=c4.getContext('2d');
+	cxt4.font="30px Arial";
+	cxt4.fillStyle=grd;
+	cxt4.fillText("Smile!",50,90);
+	
+	var c5=document.getElementById('myCanvas5');
+	var cxt5=c5.getContext('2d');
+	var grd=cxt5.createLinearGradient(50,100,158,100);
+	grd.addColorStop(0,'rgba(255,0,0,0.3');
+	grd.addColorStop(0.01,'red');
+	grd.addColorStop(.2,'orange');
+	grd.addColorStop(.4,'yellow');
+	grd.addColorStop(.6,'green');
+	grd.addColorStop(.8,'blue');
+	grd.addColorStop(.99,'purple');
+	grd.addColorStop(1,'rgba(255,0,0,.3)')
+	cxt5.font="60px Arial";
+	cxt5.strokeStyle=grd;
+	cxt5.strokeText("Smile!",20,100);
+	
+	var c6=document.getElementById('myCanvas6');
+	var cxt6=c6.getContext('2d');
+	cxt6.lineWidth=20;
+	cxt6.beginPath();
+	cxt6.moveTo(50,100);
+	cxt6.lineTo(80,50);
+	cxt6.lineTo(110,100);
+	cxt6.lineJoin='bevel';//miter  round  bevel
+	cxt6.strokeStyle='red';
+	cxt6.stroke();
+	
+	var c7=document.getElementById('myCanvas7');
+	var cxt7=c7.getContext('2d');
+	cxt7.beginPath();
+	cxt7.moveTo(100,100);
+	cxt7.lineTo(300,100);
+	cxt7.lineTo(300,300);
+	cxt7.lineTo(100,300);
+	cxt7.lineTo(100,100);
+	cxt7.lineWidth=20;
+	cxt7.strokeStyle='rgba(255,0,0,.5)';
+	cxt7.lineJoin='bevel';
+	cxt7.stroke();
+	
+	var c8=document.getElementById('myCanvas8');
+	var cxt8=c8.getContext('2d');
+	var rGrd=cxt8.createRadialGradient(100,100,100,110,110,200);
+	rGrd.addColorStop(0,'white');
+	rGrd.addColorStop(0.5,'yellow');
+	rGrd.addColorStop(0.9,'blue');
+	rGrd.addColorStop(1,'red');
+	cxt8.fillStyle=rGrd;
+	cxt8.fillRect(0,0,400,400);
+	
+	var c9=document.getElementById('myCanvas9');
+	var cxt9=c9.getContext('2d');
+	cxt9.fillStyle='red';
+	cxt9.save();
+	cxt9.fillRect(0,0,400,100);
+	cxt9.fillStyle='green';
+	cxt9.fillRect(0,100,400,100);
+	cxt9.restore();
+	cxt9.fillRect(0,200,400,100);
+	
+	var img = document.getElementById('img');
+	var c10=document.getElementById('myCanvas10');
+	var cxt10=c10.getContext('2d');
+	
+
+	img.onload = function (){
+		var bg=cxt10.createPattern(img,'no-repeat');
+		cxt10.fillStyle=bg;
+		cxt10.fillRect(0,0,400,400);
+	}
+	
+</script>

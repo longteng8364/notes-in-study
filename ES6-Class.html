@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 一、类的基本语法
+        1.定义类
+        ES6的class可以看作只是一个语法糖，下面代码定义了一个类，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象
+        class B 除了构造方法，还定义了一个toString方法。注意，定义“类”的方法的时候，前面不需要function关键字，而且方法之间不需要逗号分隔，加了会报错
+         */
+        class B {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            toString() {
+                return this.x + ' ' + this.y;
+            }
+
+            doSomething() {
+                console.log('something');
+            }
+        }
+
+        let b = new B();
+
+        console.log(typeof B);  //function
+        console.log( B === B.prototype.constructor); //true
+        console.log( b.constructor === B.prototype.constructor); //true
+
+        //上面代码表明，类的数据类型就是函数，类本身就指向构造函数。构造函数的prototype属性，在ES6的类上继续存在。事实上，类的所有方法都定义在类的prototype属性上。
+        //上面定义类的代码等同于
+            /* B.prototype = {
+                constructor() {},
+                toString() {},
+                doSomething() {}
+        } */
+        //在类的实例上调用方法，其实就是调用原型上的方法，b是B的实例，b.constructor就是B原型的constructor方法。
+
+        //2.严格模式
+        //类和模块的内部，默认就是严格模式。只要你的代码写在类或模块之中，就只有严格模式可用。考虑到未来所有的代码，都是运行在模块之中，所以ES6实际上把整个语言升级到了严格模式。
+
+        /* 3.constructor方法
+            constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加
+            constructor方法默认返回实例对象（this），完全可以指定返回一个其他的对象
+                class Foo {
+                    constructor() {
+                        return Object.create(null);
+                    }
+                }
+                new Foo() instanceof Foo  // false
+            上面代码，constructor函数返回一个全新的对象，结果导致实例对象不是Foo类的实例
+
+            类必须使用new调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。
+        
+         */
+
+        /* 
+        4.类的实例对象
+        class Point {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            toString() {
+                return '(' + this.x + ', ' + this.y + ')';
+            }
+         }
+
+            var point = new Point(2, 3);
+
+            point.toString() // (2, 3)
+
+            point.hasOwnProperty('x') // true
+            point.hasOwnProperty('y') // true
+            point.hasOwnProperty('toString') // false
+            point.__proto__.hasOwnProperty('toString') // true
+        实例的属性除非显示定义在其本身（即定义在this对象上），否则都是定义在原型上。
+        分析上面代码
+        
+         */
+
+        //5.类不存在变量提升，一个类如果在声明之前使用，就会报错。
+
+
+
+    /* 
+      二、类的继承
+         1.class可以通过extends关键字实现继承，并且子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+         ES5的继承，实质上是先创造子类的实例对象this，然后再将父类的方法添加到this上面。ES6的继承完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。
+         如果子类么有定义constructor方法，这个方法会被默认添加。也就是说，不管有没有显式定义，任何一个子类都有constructor方法。
+         另一个需要注意的地方是，在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错
+
+         2. 类的静态方法不会被实例对象继承，但是会被子类继承
+
+         3.Object.getPrototypeOf方法可以从子类上获取父类
+
+         4.super关键字
+         super这个关键字，既可以当作函数使用，也可以当作对象是用。在这两种情况下，它的用法完全不同。
+         第一种情况，super作为函数调用时，代表父类的构造函数。作为函数时，super只能用在子类的构造函数中，用在其他地方就会报错。
+         第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+         由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
+         ES6规定，在子类普通方法中通过super调用父类的方法时，方法内部的this指向当前的子类实例。所以如果通过super给某个属性赋值，赋值的属性会变成子类实例的属性。
+
+         5.类的prototype属性和__proto__属性
+           1）子类的__proto__属性，表示构造函数的继承，总是指向父类。
+           2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
+
+
+    
+    
+     */
+
+    </script>
+    
+</body>
+</html>

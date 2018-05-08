@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     #wrapper {
+        width: 600px;
+        height: 600px;
+        border: 1px solid #f44;
+        margin: 100px auto;
+        position: relative;
+    }
+
+    #wrapper div {
+        width: 100px;
+        height: 100px;
+        background: orange;
+        position: absolute;
+        left: 0;
+        top: 0;
+        animation: 3s 500ms run2 ease 2;
+        left: 500px;
+        top: 500px;
+        /* 
+        第一个值：动画总时长
+        第二个值：延迟时间
+        第三个值：定义的动画名称
+        第四个值：动画速率
+        第五个值：动画循环次数
+         */
+    }
+    @keyframes run {
+        0% {
+            left: 0;
+            top: 0;
+        }
+        25% {
+            left: 500px;
+            top: 0;
+        }
+        50% {
+            left: 500px;
+            top: 500px;
+        }
+        75% {
+            left: 0;
+            top: 500px;
+        }
+        100% {
+            left: 0;
+            top: 0;
+        }
+    }
+    @keyframes run2 {
+        0% {
+            left: 0;
+            top: 0;
+        }
+        50% {
+            left: 500px;
+            top: 0;
+        }
+        100% {
+            left: 500px;
+            top: 500px;
+            /* 如果动画的结束点不是动画开始的初始位置，那么动画结束之后，元素会自己跳到初始位置
+                    所以要在设置中animation：之后 再设置一次动画结束后应该停在什么位置；
+             */
+        }
+    }
+    </style>
+   
+</head>
+<body>
+    <div id="wrapper">
+        <div></div>
+    </div>
+
+    <!-- 
+        animation是一个复合属性，可以分为下面这些：
+            animation-name 动画的keyframes 名
+            animation-duration 动画执行时间
+            animation-timing-function 过渡函数
+            animation-delay 延迟时间
+            animation-direction 动画方向，可选的值有：
+                normal 默认
+                reverse 反向
+                alternate 奇数次normal，偶数次反向
+                alternate-reverse 偶数次normal，奇数次反向
+            animation-iteration-count 循环次数，可以是具体的数字，无限就是infinite
+            animation-fill-mode 定义动画开始之前和结束之后发生的操作，有以下值可选：
+                 forwards  动画在结束后停在最后的关键帧的位置
+                 backwards 在向元素应用动画样式时迅速应用动画的初始帧，这个主要是在设置延迟的时候，如果没有这个参数，那延迟是发生在元素的初始位置，而不是动画设置的0%的位置，有了这个，元素会先到0%设置的位置，在这等待延迟时间
+                 both  元素动画同时具有forwards和backwards效果
+                 none  默认值，表示动画将按预期进行和结束，在动画完成其最后一帧时，会反转到初始帧处
+            animation-play-state：
+                用来控制动画的播放状态：
+                    running 播放
+                    paused 暂停
+
+        如果只有0%和100%两个关键帧，可用from和to代替
+        注意：动画样式初始值
+            动画结束之后会回到样式设置中的位置
+     -->
+</body>
+</html>

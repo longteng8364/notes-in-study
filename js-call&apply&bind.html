@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    1.apply,call,bind都是用来改变函数执行时this的指向的。
+    2.apply,call,bind第一个参数都是this要指向的对象，后面的参数是函数执行时传入的参数。
+    3.bind返回一个函数，等待后续调用，apply和call是直接调用。
+
+    call：
+      第一个参数的取值有4种情况：
+        1）不传，或者传null，undefined，函数中的this指向window
+        2）传一个函数名，this指向该函数的引用
+        3）传递字符串，数字或者布尔值等基础类型数据，函数中的this指向其对应的包装对象String Number Boolean等
+        4）传一个对象，this指向这个对象
+
+    apply：
+      作用和call完全一样，就是传入的后续参数是数组
+
+    所以，当参数是明确知道的时候用call，不确定的时候用apply
+
+    bind：
+      bind方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入的第一个参数作为this
+</body>
+<script>
+
+    function deepClone(origin, target){
+     
+        if(origin === null){
+            target = null;
+        }else{
+            if(typeof origin == 'object'){
+                console.log('引用值');
+                if(origin instanceof Array == true){
+                    console.log('array');
+                    target = [];
+                    for(var i = 0; i < origin.length; i++){
+                        if(typeof origin[i] == 'object'){
+                           target[i] = deepClone(origin[i], target[i]);
+                        }else{
+                            target[i] = origin[i];
+                        }
+                    }
+                }else{
+                    console.log('object');
+                    target = {};
+                    for(var prop in origin){
+                        if(typeof origin[prop] == 'object'){
+                           target[prop] = deepClone(origin[prop], target[prop]);
+                        }else{
+                            target[prop] = origin[prop];
+                        }
+                    }
+                }
+            }else{
+                console.log('原始值');
+                //console.log(origin);
+                target = origin;
+                //console.log(target);
+            }
+        }
+        //console.log(target);
+        return target;
+    }
+
+    var str ={arr:[1,23,1,[2,3]], num: 12312, str: 'str', obj: {}};
+    var newOne=deepClone(str, newOne);
+    //console.log(str);
+    console.log(newOne);
+</script>
+</html>

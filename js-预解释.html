@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+		// 预解释发生在函数执行前一刻：
+		// 1.创建AO(Activation Object/执行期上下文)对象
+		// 		AO {
+
+		// 		}
+		// 2.找形参和变量声明，将变量和形参名作为AO属性名，值为undefined
+		// 3.将实参值和形参统一
+		// 4.在函数体里面找函数声明，值赋予函数体
+
+					var a=12;
+					function a()
+					{
+						var a=13;
+						console.log(a);
+					}
+					console.log(a);  //12
+					a=a(); // a is not a function
+					console.log(a);
+
+		//			a=12;
+		//			console.log(a);
+		//			console.log(window.a);
+		//			console.log(a==window.a);
+
+		//			function fn(name)
+		//			{
+		//				console.log(name);
+		//				var name="123";
+		//				console.log(name);
+		//			}
+		//			fn("456");
+
+		//			var name='quanju';
+		//			function fn(name)
+		//			{
+		//				console.log(name); //quanju
+		//				var name='siyou';
+		//				console.log(name); //siyou 
+		//			}
+		//			fn(name);
+		//			console.log(name); //quanju
+
+
+		var foo = 'hello';
+		(function (foo) {
+			console.log(foo);
+			var foo = foo || 'world';
+			console.log(foo);
+		})(foo); //闭包（立即执行函数）不预解释
+		console.log(foo);
+		/*
+		 首先预解释 var foo 
+		 然后从上到下开始执行
+		 执行到这个立即执行函数先给它一个内存，它就有了自己的私有作用域
+		 预解释此函数，此函数有个形参foo，这是全局变量foo的值
+		 所以函数里的var foo就不再声明了
+		 所以第一个console.log（foo）的值是’hello‘
+		 执行到var foo=foo||’world‘这里，因为形参foo的值是’hello‘，转换为boolean值是true，所以
+		 这里的foo=foo 也就是’hello‘
+		 
+		 最后函数外面的console.log肯定是全局变量foo 还是’hello‘
+			
+		 * */
+
+		var x = 1,
+			y = z = 0;
+
+		function add(n) {
+			return n = n + 1;
+		}
+		y = add(x);
+
+		function add(n) {
+			return n = n + 3;
+		}
+		z = add(x);
+		console.log(x, y, z);
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>

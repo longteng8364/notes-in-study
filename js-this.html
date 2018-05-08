@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		<script>
+			// this:
+			//1.函数预编译过程 this指向window
+			//2.在全局作用域里 this指向window
+			//3.call/apply 可以改变函数运行时this的指向
+			//4.obj.func(); func()里面的this指向obj
+
+			/*三个基本要素:
+			 1.this指向的,永远只可能是对象!!!!
+			 2.this指向谁,永远不取决于this写在哪!而是取决于函数在哪调用!
+			 3.this指向的对象,我们称之为函数的上下文context,也叫函数的调用者
+			 
+			 */
+			
+			/*五个规律:
+			 1.通过函数名()直接调用,this指向window
+			 	function fn()
+			 	{
+			 		alert(this);
+			 	}
+			 	fn();  //[Object Window]
+			 	
+			 
+			 2.通过对象.函数名()调用的,this指向这个对象
+			 	var oDiv=document.getElementById('div1');
+			 	oDiv.onclick=function()
+			 	{
+			 		this.background='red';
+			 	}
+			 	
+			 	
+			 3.函数作为数组中的一个元素,通过数组下标调用的,this指向这个数组
+			 	var ary=[fn,1,2,3];
+			 	ary[0]();
+			 	
+			 	
+			 4.函数作为window内置函数的回调函数调用,this指向window
+			 	setTimeout(function (){console.log(this);},1000);  //window
+			 	
+			 	
+			 5.函数作为构造函数,用new关键字调用时,this指向新new出的对象
+			 	function Person(name,age,sex)
+			 	{
+			 		this.name=name;
+			 		this.age=age;
+			 		this.sex=sex;
+			 		this.say=function ()
+				 		{
+				 			alert("我叫"+this.name+",今年"+this.age+"岁,我是"+this.sex+"生.");
+				 		}
+			 	}
+			 	
+			 	var zhangsan=new Person("张三",18,"男");
+			 	zhangsan.say();
+			 * */
+			
+			var fullname = 'John Doe';
+        	var obj = {
+	           		fullname: 'Colin Ihrig',
+	           		prop: {
+	           	   		fullname: 'Aurelio De Rosa',
+	              		getFullname: function() {
+	                 		return this.fullname;
+	             		 }
+	          		 }
+        	};
+        	var arr = [obj.prop.getFullname,12,3,4,5];
+        	console.log(arr[0]());//this指向数组，数组没有fullname属性，所以未定义！
+       	 	console.log(obj.prop.getFullname()); // Aurelio De Rosa
+        	//函数最终调用者：obj.prop  this--->obj.prop
+        	var test = obj.prop.getFullname; 
+        	console.log(test());  // John Doe
+        	// 函数最终调用者： 函数() window  this-->window
+        	obj.func = obj.prop.getFullname;
+        	console.log(obj.func()); // this最终调用者是obj，所以this指向obj
+			
+			var foo = 123;
+			function a(){
+				this.foo = 234;
+				console.log(foo);
+			}
+			//a(); 234
+			new a(); //123
+			
+		</script>
+	</body>
+</html>

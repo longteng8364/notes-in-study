@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h2>如何绑定事件处理函数</h2>
+		<p>
+		1.ele.onxxx = function () {};<br>
+		这种方法兼容性很好，但是一个元素的同一个事件上只能绑定一个处理程序<br>
+		基本等同于写在html行间样式上<br>
+		this指向dom元素本身；<br>
+		2.ele.addEventListener(type, fn, false);<br>
+		IE9以下不兼容，可以为一个事件绑定多个处理程序<br>
+		this指向dom元素本身；<br>
+		3.ele.attachEvent('on' + type, fn);<br>
+		IE独有，一个事件同样可以绑定多个处理程序<br>
+		this指向window
+
+		</p>
+		<h2>解除事件处理程序</h2>
+		<p>
+		1.ele.onxxx = false/''/null;<br>
+		2.ele.removeEventListener(type, fn, false);<br>
+		3.ele.detachEvent('on' + type, fn)<br>
+		这里有一点需要注意，如果绑定处理函数的时候，fn是一个匿名函数，那么将
+		无法解除。<br>
+		所以如果有解除处理函数的需求的时候，在绑定的时候要将fn单独拿出来写
+		
+		</p>
+	</body>
+</html>
+<script>
+	function addEventHandler(target,eventType,fn){
+		if(target.addEventListener){
+			target.addEventListener(eventType,fn,false);
+		}else if(target.attachEvent){
+			target.attachEvent('on'+eventType,fn);
+		}else{
+			target['on'+eventType]=fn;//兼容一些十分古老的浏览器的,现在不用写这句了
+		}
+	}
+	
+	function removeEventHandler(target,eventType,fn){
+		if(target.removeEventListener){
+			target.removeEventListener(eventType,fn,false);
+		}else if(target.detachEvent){
+			target.detachEvent('on'+eventType,fn)
+		}else{
+			delete target['on'+eventType];
+		}
+	}
+</script>

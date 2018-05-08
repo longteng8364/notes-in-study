@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        let笔记：
+            1.for循环有一个特别的地方：设置循环变量的那部分是一个父作用域，循环体内部是一个单独的子作用域
+            2.let声明的变量不存在变量提升，如果在变量声明前使用它 会报错
+            3.暂时性死区（temporal dead zone  TDZ）：
+                ES6明确规定： 如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域，凡是在声明之前就使用这些变量，都会报错。总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。
+                因为这个死区，所以typeof不再是百分百安全的方法了，以前typeof是不会报错了，现在会了。
+            4.let不允许在相同作用域内，重复声明同一个变量。
+                就算先用let再用var都不行。
+            5.在for循环中，用var声明的用来计数的变量i在循环结束后，会泄露为全局变量。
+
+
+        const笔记：
+            1.const声明一个只读的常量。一旦声明，其值就不能改变，改变会报错，所以用const声明常量的时候，要立即初始化，不能留到以后赋值，不然会报错。
+            2.const其他特点跟let相同。
+            3.const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址不得改动。对于复合类型的数据（数组，对象之类），变量保存的只是一个指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就不能控制了。
+
+
+        es6一共有6种声明变量的方法：
+        var  function  let  const  import  class
+
+        es6规定 为了保持兼容性，var命令和function命令声明的全局变量，依旧是顶层对象的属性，而let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性。
+            例： var a = 1;   window.a //1
+                let b = 2;    window.b  //undefined
+     -->
+</body>
+</html>

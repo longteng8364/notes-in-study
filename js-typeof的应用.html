@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+
+			//一套不错的typeof应用题：https://www.cnblogs.com/xcr1234/p/5527816.html
+
+			/* 
+			  typeof 能返回的值有6个：
+			  nuber string boolean object function undefined
+			  typeof(null) 返回的是object
+			 */
+
+			var x = 1;
+			if(function f() {}){
+				x += typeof f;
+			}
+			console.log(x);  //'1undefined'
+			//function f() {}放到if()里面，其实并不是定义，而只是作为if的条件放在那里，所以typeof f 是undefined
+
+			var foo = {
+				bar: function (){
+					return this.baz;
+				},
+				baz: 1
+			};
+			(function (){
+				console.log(typeof arguments[0]());
+			}(foo.bar));  //undefined
+			
+
+//写一个能详细分辨数据类型的type函数：
+			function type(target){
+				var temp = {
+					"[object Array]" : "array",
+					"[object Object]" : "object",
+					"[object Number]" : "number - object",
+					"[object Boolean]" : "boolean - object",
+					"[object String]" : "string - object"
+
+				}
+				if(target === null){
+					return 'null';
+				}
+				if(typeof(target) == 'object'){
+					var str = Object.prototype.toString.call(target);
+					return temp[str];
+				}else{
+					return typeof(target);
+				}
+			}
+
+
+
+
+
+
+			//用typeof检测形参是否传递 如果没有传递,那就是"undefined"
+			function sum(num1,num2)
+			{
+				var total=0;
+				if(typeof num1!="undefined")
+				{
+					total+=num1;
+				}
+				if(typeof num2!="undefined")
+				{
+					total+=num2;
+				}
+				console.log(total);
+			}
+			
+			sum(1,2);
+			sum(1);
+			sum();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

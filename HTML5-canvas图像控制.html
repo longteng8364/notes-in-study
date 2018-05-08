@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    /* 
+    写在css里的canvas背景，只在网页中有显示效果，但是当保存图片的时候，是没有这个背景的，
+    所以，用填充一个跟canvas画布一样大的矩形的方式来制造背景。
+     */
+    </style>
+</head>
+<body>
+    <!-- 
+        在canvas上绘制图像,画布或视频:
+        语法一:
+            context.drawImage(img,x,y);
+        语法二:
+            context.drawImage(img,x,y,width,height);
+        语法三:
+            context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height)
+            参数解析:
+            img:规定要使用的图像,画布或视频
+            sx:可选,开始在img上剪切的x坐标
+            sy:可选,开始在img上剪切的Y坐标
+            swidth:可选,被剪切的图像的宽度
+            sheight:可选,被剪切的图像的高度
+            x:可选,在canvas上放置img的x坐标
+            y:可选,在canvas上放置img的Y坐标
+            width:可选,img在canvas上的宽度
+            height:可选,img在canvas上的高度
+
+
+
+        在水平和垂直方向重复图像:
+            context.createPattern(img,"repeat | repeat-x | repeat-y | no-repeat");
+
+        获取画布矩形区域像素信息:
+            context.getImageData(x,y,width,height);
+            返回的image对象的data属性对象,该对象包含指定的imageData对象的图像数据,对于imageData对象中的每个像素,都存在着四个值RGBA,取值范围都是0-255
+
+        把图像数据放回画布:
+            context.putImageData(imageData,x,y,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
+     -->
+
+     <img src="./img/4.png" id="img" width="0" height="0" alt="">
+     <canvas width="800" height="500" id="canvas"></canvas>
+     <canvas width="100" height="100" id="can2"></canvas>
+     <script>
+         var canvas = document.getElementById('canvas');
+         var cv = canvas.getContext('2d');
+        //  cv.drawImage('./img/1.png',10,10);
+        // var newImg = new Image();
+        // newImg.src = './img/1.png';
+        // newImg.onload = function (){
+        //     //一定要写在img的onload事件里,不然会显示不出来;
+        //     cv.drawImage(newImg,10,10);
+        // }
+
+            var img = document.getElementById('img');
+            img.onload = function (){
+                cv.drawImage(img,10,10);
+            }
+        
+
+
+        // window.onload = function (){
+        //     cv.drawImage('./img/2.png',10,10);
+        // }  不能直接写路径;
+
+
+
+
+        var can2 = document.getElementById('can2');
+        var cv2 = can2.getContext('2d');
+        //要先填充一个跟画布一样大的矩形充当背景
+        cv2.fillStyle = '#272822';
+        cv2.fillRect(0,0,100,100);
+        // 获得所有像素点信息：
+        var allData = cv2.getImageData(0,0,100,100);
+        //修改每一个像素点的每一位数值为0-255之间的随机数：
+        var len = allData.data.length;
+        for(var i = 0; i < len; i++){
+            allData.data[i] = Math.round(Math.random() * 255);
+            //注意不是allData[i],而是allData.data[i];
+        }
+        //把修改后的数据放回canvas画布中
+        cv2.putImageData(allData,0,0);
+
+     </script>
+</body>
+</html>

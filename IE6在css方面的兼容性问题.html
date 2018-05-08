@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1.IE6下有个最小高度问题，一个元素设置的高度低于19px，在IE6下都会显示为19px
+          解决办法：加overflow：hidden；
+
+        2.IE6下不支持1px的dotted样式的边框
+          解决办法：切背景图 平铺；
+
+        3.在IE下大部分兼容性问题都是因为haslayout属性的触发问题，尽量触发haslayout属性，可以减少很多IE下的兼容性
+          问题；
+
+        4.IE6双边距的bug
+          在IE6下，块级元素如果设置了浮动并且有横向margin值的时候，横向的margin值会扩大两倍；
+
+        5.在IE6，7下，li标签本身没有浮动，li里面的内容有浮动的情况下，li下会产生一个间隙
+          解决办法：
+            1.给li加浮动；
+            2.给li加vertical-align：top；
+          当IE6下最小高度bug和li的间隙问题一同存在的时候，只能给li加浮动，vertical-align不好使了；
+
+        6.当一行子级元素宽度之和和父级的宽度相差超过3px，或者子级元素不满行的情况下，最后一行的子级元素的
+           margin-bottom会失效
+
+        7.IE6下的文字溢出bug
+          子元素的宽度和父元素的宽度如果相差小于3px，两个浮动元素中间有注释或者内联元素，就会出现文字溢出
+            内联元素越多，溢出越多
+          解决办法：用div把注释或者内联元素包起来；
+
+        8.在IE6下，当浮动元素和绝对定位元素是兄弟关系的时候，绝对定位会失效
+          解决办法：不让浮动元素和绝对定位元素是兄弟关系，或者用其他标签把其中一个给包起来；
+          
+        9.在IE6，7下，子级元素有相对定位，父级overflow包不住子级元素
+          解决办法：给父级也加相对定位；
+
+        10.在IE6下，如果绝对定位元素的父级宽高是奇数的时候，子级元素的right和bottom值会有1px的偏差；
+
+        11.在老版本的IE下设置透明度：filter:alpha(opcity=50);
+
+        12.在IE6，7下，input标签上下会有1px的间隙
+          解决办法：给input加浮动
+
+        13.<!--[if ie]>
+            这里的内容在IE浏览器下会被识别
+           <![endif]-->
+           <!--[if ie 6]>
+            这里的内容在IE6下会被识别，IE7，8同理 
+           <![endif]-->
+
+        14.css hack：
+            \9  ie10之前的ie浏览器解析的代码
+            +或者*  ie7及之前的浏览器解析的代码
+            _  ie6及之前的。。。
+
+            div{
+                background：red;
+                background: yellow\9;
+                +background: blue;
+                _background: pink;
+            }
+
+
+
+
+
+     -->
+</body>
+</html>

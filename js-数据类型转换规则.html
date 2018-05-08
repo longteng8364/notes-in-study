@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//数据类型转换规则：
+			//1、如果只有一个值，判断这个值是真还是假，只有0 NaN "" null undefined这五个是假的，其他都是真的
+			//2、如果有两个值比较是否相等，遵循以下规则：
+				//两个值不是同一个数据类型，进行==比较，会进行默认的数据类型转换
+					//对象==对象        永远不相等
+					//对象==字符串          先将对象转换成字符串（调用toString方法）再比较
+						//[]转换为字符串是""
+						//{}转换为字符串是"[object object]"
+					//对象==boolean    先将对象转换为字符串,再转换为数字(""空字符串转换为数字是0),
+					   //boolean值也转换为数字(true是1  false是0)最后比较两个数字
+					//对象==数字                先将对象转换为字符串,再转换为数字(""空字符串转换为数字是0)
+					//数字==boolean     boolean转换为数字
+					//数字==字符串               字符串转换为数字
+					//字符串==boolean    都转换为数字
+					//null==undefined    结果是true
+					//null或undefined跟任何其他类型值比较都不相等
+					//null或undefined不能和数字比较
+					//NaN和任何值都不相等，包括它自己  
+					
+			//3  ===  三个等号  绝对比较
+				//如果数据类型不一样 那永远不相等
+				//null===undefined  结果是false
+
+
+				//引用值之间做===比较，比较的是地址:
+				var obj = {};
+				var obj1 = obj;
+				console.log(obj1 == obj); //true
+				console.log(obj1 === obj);//true
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

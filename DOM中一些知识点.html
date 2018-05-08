@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+window.onload=function ()
+{
+//1.获取页面中元素的方法:
+	//1)document.getElementById()
+	//注意:
+	//如果页面中id重复了,那么这个方法默认只获取第一个该id的元素
+	//在ie6,7中,会把表单元素input的name属性当作id
+	//在ie6,7中,不区分id的大小写
+	//没有没有获取到元素,返回的结果是null
+	//在项目中,不要让表单元素的name属性的其他元素的id重复,
+		//也不要用id的大小写来区分不同的元素
+	//其实可以直接用元素的id来代表这个元素  不用getElementById 但是不推荐这么做
+		//div1.style.background="green";
+		
+/*
+	2)document.getElementsByTagName() 
+		通过元素的标签名,获取一组元素,获取的是一个对象数据类型结果,并且是一个类数组
+		把document称之为上下文(context),就是我们可以自己限定当前获取元素的范围
+			(getElementById的上下文只能是document)
+			
+	
+	3)context.getElementsByName()
+		通过元素name属性获取一组元素
+		在所有版本的ie浏览器下用这种方法只对表单元素起作用
+		所以在项目中这种方法只用来获取具有相同name属性的表单元素
+		
+		var oSex=document.getElementsByName('sex');
+		var cur='';
+		for(var i=0;i<oSex.length;i++)
+		{
+			if(oSex[i].checked===checked)
+			{
+				cur=oSex[i].value;
+				break;//单选只有一个是选中的,所以找到这个被选中的项,其他的就可以不用再循环
+						判断了,用break直接跳出循环,提高性能
+			}
+		}
+		
+	4)context.getElementsByClassName()
+		通过元素的类名(class值)获取一组元素
+		这种方法在项目中是最常用的方法,但是在ie6~8中会报错
+		
+		
+	5)document.documentElement //获取html元素
+		document.body //获取body元素
+		这两种方法一般是用来获取屏幕或页面位置的
+		
+		
+	6)在移动端获取元素常用的方法(ie6~8不兼容)
+		document.querySelector()
+		document.querySelectorAll()
+		这两种方法跟jQuery中获取元素的方法很相似
+	
+	* */
+
+
+
+	/*
+		2.元素之间的关系:
+		//节点:Node   一个页面中的元素标签,文字,注释.....都是节点
+		
+		获取关系的属性
+		//childNodes:获取所有子节点(包括文本节点,元素节点等所有)
+		//children:获取所有的元素子节点
+		//parentNode:获取父级节点，顶级是document
+		//parentElement:获取父级节点，但是这个的顶级是html节点(ie9以下不兼容)
+		//previousSibling/nextSibling:获取上一个/下一个兄弟节点
+		//perviousElementSibling/nextElementSibling：(ie9以下不兼容)
+		//firstChild:获取第一个子节点
+		//firstElementChild: (ie9以下不兼容)
+		//lastChild:获取最后一个子节点
+		//lastElementChild: (ie9以下不兼容)
+	
+	
+	
+	3.节点的四个属性：
+		nodeName：元素的标签名，以大写形式表示，只读；
+
+		nodeValue：text节点或comment节点的文本内容，可读写；
+
+		nodeType：该节点的类型，只读；
+
+		attributes：Element节点的属性集合 
+			例如：<div id="div1" class="div"></div>
+				id="div1"这算一个属性节点，class="div"这算一个属性节点
+
+		节点的一个方法：
+		node.hasChildNodes():返回true或false;并且只有元素是类似<div></div>
+			这样的形式的时候才返回false，里面哪怕是有一个空格，你也算有个文本节点
+			也要返回true
+	
+	在js中需要掌握的节点类型:
+	//               nodeType            nodeName                nodeValue
+	//元素节点           1              大写的标签名                null
+	//文本节点           3                 #text                 文本内容
+	//注释节点           8				  #comment				 注释内容
+	//document			9     			 #document				  null
+	//属性节点           2
+	
+	//在标准浏览器下,空格和换行都当作文本节点处理
+	
+	//模拟children方法,实现获取元素子节点功能:
+		function getChildren(ele)
+		{
+			var ary=[],
+			nodes=ele.childNodes;
+			for(var i=0;i<nodes.length;i++)
+			{
+				var cur=nodes[i];
+				if(cur.nodeType===1)
+				{
+					ary.push(cur);
+				}
+			}
+			return ary;
+		} 
+		
+		功能进阶:可以筛选指定标签的功能 
+			function getChildren2(ele,tagName)
+			{
+				var ary=[],nodes=ele.childNodes;
+				for(var i=0;i<nodes.length;i++)
+				{
+					var cur=nodes[i];
+					if(cur.nodeType===1)
+					{
+						if(tagName)
+						{
+							if(cur.nodeName.toLowerCase()===tagName.toLowerCase())
+							{
+								ary.push(cur);
+							}
+							
+						}
+						else
+						{
+							ary.push(cur);
+						}
+					}
+				}
+				return ary;
+			}
+			
+			
+	//找某元素节点的元素兄弟节点(跳过文本节点,注释节点等);
+	function prev(ele)
+	{
+		var pre=ele.previousSibling;
+		while(pre&&pre.nodeType!==1)
+		{
+			pre=pre.previousSibing;
+		}
+		return pre;
+	}
+	
+	//再进阶:找所有的元素兄弟节点
+	function prevAll(ele)
+	{
+		var pre=ele.previousSibling,ary=[];
+		while(pre)
+		{
+			if(pre.nodeType===1)
+			{
+				ary.unshift(pre);
+			}
+			pre=pre.previousSibling;
+		}
+		return ary;
+	}
+	
+	
+	4.DOM里的增加,删除,修改元素方法
+		//document.createElement():创建一个元素,()里是"标签名"
+		
+		//下面三种方法前面都是父级节点
+		//appendChild():将一个元素添加的末尾
+		//insertBefore(a,b):把a插入到b的前面
+		//replaceChild(a,b):用a把b替换掉
+		
+		//克隆是用于当前节点
+		//cloneNode(true):克隆一个节点,true可选,带true表示连里面的所有后代节点都克隆
+	
+		var aUl=document.getElementsByTagName('ul');
+		var newUl=aUl[0].cloneNode();//克隆一个节点
+		newUl.style.border="1px solid black";
+		newUl.style.width="200px";
+		newUl.style.height="100px";
+		document.body.appendChild(newUl);
+		
+		var newUl2=aUl[0].cloneNode(true);//克隆一个节点,包括该节点里面的所有后代节点
+		newUl2.style.border="1px solid black";
+		newUl2.style.width="200px";
+		newUl2.style.height="100px";
+		aUl[0].parentNode.insertBefore(newUl2,aUl[0]);
+		
+		aUl[0].parentNode.removeChild(aUl[0]);
+		//因为上面把克隆的节点添加到原来aUl[0]的前面了,所以新添加的ul变成了aUl[0]
+	
+	
+	
+	
+	
+	* */
+		
+
+		
+		
+				}
+		</script>
+	</head>
+	<body>
+		<ul>
+			<li></li>
+			<li></li>
+			<li id="li3"></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div id='div1'>div</div>
+		<input type="radio" value="男" name="sex" checked="checked" />男
+		<input type="radio" value="女" name="sex"  />女
+	</body>
+</html>

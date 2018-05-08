@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			function sortAry(ary,type)
+			{
+				for(var i=0;i<ary.length-1;i++)
+				{
+					for(var j=0;j<ary.length-1-i;j++)
+					{
+						if(ary[j]>ary[j+1])
+						{
+							var temp=ary[j];
+							ary[j]=ary[j+1];
+							ary[j+1]=temp;
+						}
+					}
+				}
+				type===1?ary.reverse():void 0;//传入参数1表示要从大到小排序
+			}
+			var ary=[0,12,52,10,2,62,123,465,19,34,5];
+			sortAry(ary);
+			console.log(ary);
+			sortAry(ary,1);
+			console.log(ary);
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

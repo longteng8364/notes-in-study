@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     input{
+         border: 1px solid black;
+     }
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="请输入用户名:">
+    <script>
+
+        //鼠标事件：
+        /*
+        click, mousedown, mousemove, mouseup, mouseover, 
+        mouseout, mouseenter, mouseleave,  contextmenu(右键)
+
+        用button属性来区分鼠标的按键，0是左键，1是滚轮，2是右键
+        document.onmousedown/up = function (e) {
+            console.log(e.button);
+        }
+
+        DOM3标准规定：click事件只能监听左键，只能通过mousedown和
+        mouseup来判断鼠标键
+
+        解决mousedown和click的冲突
+        */
+
+
+        //键盘事件：
+        /*
+        keydown  keypress  keyup
+        
+        触发顺序：
+        keydown > keypress > keyup
+
+        keydown和keypress区别：
+        keydown可以响应任意键盘按键，keypress只可以响应字符类按键
+        keypress返回ASCII码，可以转换成相应字符
+        document.onkeypress = function (e) {
+            console.log(String.fromCharCode(e.charCode));
+        }
+        */
+
+
+        //文本操作事件：
+        /*
+        input  focus  blur  change
+
+        oninput和onchange的区别：
+        在一个input标签里，input事件在每输入一个按键或鼠标点击都会
+        响应
+        但是change事件是在input标签获得焦点之后开始记录，失去焦点
+        之后响应变化
+        */
+
+
+        //窗口操作类事件（window上的事件）；
+        /*scroll 滚动条滚动触发
+
+         load*/
+
+        //解决mousedown和click的冲突：
+        var firstTime = 0,
+            lastTime = 0,
+            key = false;
+
+        document.onmousedown = function (){
+            firstTime = new Date().getTime();
+        }
+        document.onmouseup = function (){
+            lastTime = new Date().getTime();
+            if(lastTime - firstTime < 300){
+                key = true;
+            }
+        }
+        document.onclick = function (){
+            if(key){
+                console.log('click');
+                key = false;
+            }
+        }
+
+
+
+        // var input = document.getElementsByTagName('input')[0];
+        // // input.oninput = function () {
+        // //     console.log(this.value);
+        // // }
+        // input.onchange = function (e){
+        //     console.log(this.value);
+        // }
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            name : 'abc',
+            age : 26,
+            hobit : ['smoke','drink'],
+            prop : 'hahaha'
+        }
+        
+        obj.__proto__ = {
+            sex: 'male'
+        }
+        for(var prop in obj){
+           //console.log(obj.prop);
+           if(obj.hasOwnProperty(prop)){
+                console.log(obj[prop]);
+           }
+        }
+
+        console.log('name' in obj, 'sex' in obj);
+        
+        /* 
+            1.
+        for in 循环遍历对象属性，要用中括号[]的形式，不能用点. 
+         因为js中点.的形式，系统会先转化为中括号的形式
+         那么obj.prop --> obj['prop'] 就成了调用obj里已有的prop属性了
+        for in循环也可以用在数组身上，因为数组也是对象。
+        for in循环遍历对象，会连对象原型上的属性也遍历到(不过不会拿到最顶层Object.prototype上的属性)，这通常不是我们想要的。所以可以使用hasOwnProperty加一层判断
+ */
+
+        /* 
+           2. in操作符
+               'name' in obj  => true
+                'sex' in obj  => true
+
+            可以看到，不管是对象自身的，还是其原型上的属性，用in操作符返回的都是true。所以in操作符可以理解为，判断某个属性能不能在某个对象上访问到。而不能直接理解为判断某个属性是不是某个对象上的。
+            
+            注意属性名要加引号！
+        
+         */
+
+         /* 
+            3. instanceof
+              A instanceof B  
+              简单理解是判断A是不是B的实例
+              但是从它的表现上来看，要这么理解才更准确：
+              判断A对象的原型链上，有没有B的原型。
+              
+          */
+
+          /* 
+            4.判断一个变量是数组还是对象
+              第一种方法：
+                var arr = [];
+                var obj = {};
+                arr.constructor  ==> Array
+                obj.constructor  ==> Object
+
+              第二种方法：
+                arr instanceof Array  ==> true
+                obj instanceof Array  ==> false
+
+                但是arr instanceof Object  ==> true
+                    obj instanceof Object  ==> true
+
+              第三种方法：
+                Object.prototype.toString.call([]);  ==> "[object Array]"
+                Object.prototype.toString.call({});  ==> "[object Object]"
+                Object.prototype.toString.call(123);  ==> "[object Number]"
+                Object.prototype.toString.call(true);  ==> "[object Boolean]"
+                Object.prototype.toString.call('sdfs')  ==> "[object String]"
+           */
+    </script>
+    
+</body>
+</html>

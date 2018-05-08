@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        1.Number.isFinite()用来检查一个数值是否为有限的（finite），而不是Infinity。
+            此方法如果传入的参数不是数值，一律返回false。
+        2.Number.isNaN()用来检查一个值是否为NaN,如果参数类型不是数值,一律返回false.
+
+        以上两个方法与传统的全局方法isFinite()和isNaN()的区别在于,传统方法先调用Number()将非数值的值转为数值,再进行判断,而这两个新方法只对数值有效.
+
+        3.Number.parseInt(),Number.parseFloat()
+            这两个方法就是从全局方法中移植到Number对象上的,行为与之前完全一致,这样做的目的,是逐步减少全局性方法,使得语言逐步模块化.
+
+        4.Number.isInteger()用来判断一个数值是否为整数.
+            1)在JavaScript内部,整数和浮点数采用的是同样的储存方法,所以25和25.0被视为同一个值
+                Number.isInteger(25); ->true
+                Number.isInteger(25.0);-> true;
+            2)如果参数不是数值,这个方法返回false
+            3)Number.isInteger(3.0000000000000002); ->true
+                因为这个小数的精度达到了小数点后16个十进制位,转成二进制位超过了53个二进制位,导致最后的那个2被丢弃了.
+            4)如果一个数值的绝对值小于Number.MIN_VALUE(5E-324),即小于JavaScript能够分辨的最小值,会被自动转为0,这时,用这个方法也会返回true.
+
+        5.Number.EPSILON
+            ES6在Number对象上,新增了一个极小的常量Number.EPSILON.它表示1与大于1的最小浮点数之间的差.实际上是JavaScript能够表示的最小精度,误差如果小于这个值,就可以认为已经没有意义了,即不存在误差了.
+
+        6.安全整数和Number.isSafeInreger()
+            JavaScript能够准确表示的整数范围在-2^53到2^53之间(不含两个端点),超过这个范围,无法精确表示这个值.
+            ES6引入了 Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量,用来表示这个范围的上下限
+                Number.MAX_SAFE_INTEGER === Math.pow(2,53) - 1; ->true
+                Number.MAX_SAFE_INTEGER === 9007199254740991; ->true
+
+
+
+        Math对象的扩展:
+            1.Math.trunc()方法用于去除一个数的小数部分,返回整数部分.对于非数值,内部使用Number方法将其转为数值,对于空值和无法截取整数的值,返回NaN.
+            对于没有部署这个方法的环境,可以用下面的代码模拟:
+                Math.trunc = Math.trunc || function (x){
+                    return x < 0 ? Math.ceil(x) : Math.floor(x);
+                }
+
+     -->
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //找出指定元素ele的第n层父元素：
+        function retParent(ele, n){
+            while(ele && n){
+                ele = ele.parentElement;
+                n --;
+            }
+            return ele;
+        }
+
+        //找出元素ele的第n个兄弟元素，n>0向后找，n<0向前找：
+        function retSibling(ele, n){
+            while(ele && n){
+                if(n > 0){
+                    if(ele.nextElementSibling){
+                        ele = ele.nextElementSibling;
+                    }else{
+                        for(ele = ele.nextSibling; ele && ele.nodeType !== 1; ele = ele.nextSibling);
+                        //for循环可以这么写；    
+                    }
+                    n --;
+                }else{
+                    if(ele.previousElementSibling){
+                        ele = ele.previousElementSibling;
+                    }else{
+                        for(ele = ele.previousSibling; ele && ele.nodeType !== 1;ele = ele.previousSibling);
+                    }
+                    n ++;
+                }
+                return ele;
+            }
+        }
+
+        //insertAfter方法：
+        function insertAfter(a, b){
+            this.replaceChild(a, b);
+            this.insertBefore(b, a);
+        }
+        //另一种方法：
+        function insertAfter(a, b){
+            var beforeNode = b.nextElementSibling;
+            if(beforeNode == null){
+                this.appendChild(a);
+            }else{
+                this.insertBefore(a, beforeNode);
+            }
+        }
+    </script>
+</body>
+</html>
